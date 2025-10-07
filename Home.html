@@ -11,28 +11,27 @@
   <!-- Open Graph Tags for Social Sharing -->
   <meta property="og:title" content="Image Compressor Pro — Webgamer Studio">
   <meta property="og:description" content="Compress JPEG, PNG, and WEBP images quickly and securely in your browser with Image Compressor Pro. No data leaves your device.">
-  <meta property="og:image" content="https://yourdomain.com/images/og-image-compressor.jpg">
-  <meta property="og:url" content="https://yourdomain.com/image-compressor">
+  <meta property="og:image" content="https://example.com/images/og-image-compressor.jpg">
+  <meta property="og:url" content="https://example.com/image-compressor">
   <meta property="og:type" content="website">
 
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Image Compressor Pro — Webgamer Studio">
   <meta name="twitter:description" content="Fast, secure, and free image compression tool for all devices. Optimize your images without uploading them.">
-  <meta name="twitter:image" content="https://yourdomain.com/images/twitter-image-compressor.jpg">
+  <meta name="twitter:image" content="https://example.com/images/twitter-image-compressor.jpg">
 
   <title>Image Compressor Pro — Webgamer Studio</title>
-  <link rel="canonical" href="https://yourdomain.com/image-compressor">
+  <link rel="canonical" href="https://example.com/image-compressor">
   <link rel="icon" type="image/png" href="/favicon.png">
   
-  <!-- Preload Tailwind CSS for faster rendering -->
-  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
-  <script src="https://cdn.tailwindcss.com" async></script>
-  
-  <!-- Google Fonts with font-display: swap for performance -->
+  <!-- Google Fonts with font-display: swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
 
   <style>
     body {
@@ -73,16 +72,35 @@
 
     /* Ad styles */
     .ad-container {
-      display: none;
       margin: 0 auto;
       text-align: center;
+      min-height: 50px; /* Ensure container is visible even if ad fails */
     }
 
-    .ad-container.active {
+    .ad-fallback {
+      display: none;
+      color: #999;
+      font-size: 0.875rem;
+    }
+
+    .ad-container:empty .ad-fallback {
+      display: block; /* Show fallback if ad script fails */
+    }
+
+    /* Sidebar ad is always visible */
+    .ad-300x250 {
       display: block;
     }
 
-    /* Responsive ad adjustments */
+    /* Header and footer ads are controlled by JavaScript */
+    .ad-728x90, .ad-320x50 {
+      display: none;
+    }
+
+    .ad-728x90.active, .ad-320x50.active {
+      display: block;
+    }
+
     @media (max-width: 640px) {
       .container {
         padding-left: 1rem;
@@ -109,14 +127,6 @@
       .card-shadow {
         padding: 0.75rem;
       }
-
-      .ad-728x90, .ad-300x250 {
-        display: none;
-      }
-
-      .ad-320x50.active {
-        display: block;
-      }
     }
 
     @media (min-width: 641px) and (max-width: 1024px) {
@@ -127,24 +137,6 @@
 
       .results-container {
         max-height: 500px;
-      }
-
-      .ad-728x90, .ad-320x50 {
-        display: none;
-      }
-
-      .ad-300x250.active {
-        display: block;
-      }
-    }
-
-    @media (min-width: 1025px) {
-      .ad-300x250, .ad-320x50 {
-        display: none;
-      }
-
-      .ad-728x90.active {
-        display: block;
       }
     }
 
@@ -162,6 +154,7 @@
       <p class="text-xs md:text-base text-white/90">Fast, secure, and 100% client-side compression — Your images never leave your device</p>
       <!-- Header Ad (728x90) -->
       <div class="ad-container ad-728x90" role="region" aria-label="Advertisement">
+        <div class="ad-fallback">Ad failed to load (728x90)</div>
         <script type="text/javascript">
           atOptions = {
             'key': '63718988f07bc6d276f3c6a441757cae',
@@ -170,8 +163,9 @@
             'width': 728,
             'params': {}
           };
+          console.log('Loading ad 728x90');
         </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/63718988f07bc6d276f3c6a441757cae/invoke.js" async></script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/63718988f07bc6d276f3c6a441757cae/invoke.js"></script>
       </div>
     </div>
   </header>
@@ -195,12 +189,12 @@
                 <p class="text-xs sm:text-sm text-gray-500">or tap to browse</p>
                 <p class="text-xs text-gray-400">Supports JPEG, PNG, WEBP</p>
               </div>
-              <input id="fileInput" type="file" accept="image/*" multiple class="hidden" aria-label="Upload images" />
+              <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden" aria-label="Upload images" />
             </div>
           </div>
 
           <!-- Settings -->
-          <article class="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4" aria-labelledby="settings-heading">
+          <section class="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4" aria-labelledby="settings-heading">
             <h3 id="settings-heading" class="font-semibold text-base sm:text-lg md:text-lg text-gray-800 mb-3 sm:mb-4">⚙️ Compression Settings</h3>
             <!-- Max Width -->
             <div>
@@ -248,7 +242,7 @@
               <button id="compressAllBtn" class="btn-primary flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all" aria-label="Compress all uploaded images">✨ Compress All</button>
               <button id="clearBtn" class="px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-red-50 text-red-600 rounded-lg font-semibold hover:bg-red-100 transition" aria-label="Clear all uploaded images">🗑️ Clear All</button>
             </div>
-          </article>
+          </section>
         </div>
 
         <!-- Right Column: Preview & Results -->
@@ -265,6 +259,7 @@
           </div>
           <!-- Sidebar Ad (300x250) -->
           <div class="ad-container ad-300x250 mt-4" role="region" aria-label="Advertisement">
+            <div class="ad-fallback">Ad failed to load (300x250)</div>
             <script type="text/javascript">
               atOptions = {
                 'key': 'c620af328467e6de19dc04af696ee0fb',
@@ -273,8 +268,9 @@
                 'width': 300,
                 'params': {}
               };
+              console.log('Loading ad 300x250');
             </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/c620af328467e6de19dc04af696ee0fb/invoke.js" async></script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/c620af328467e6de19dc04af696ee0fb/invoke.js"></script>
           </div>
         </div>
       </div>
@@ -318,7 +314,8 @@
       </ul>
     </nav>
     <!-- Footer Ad (320x50) -->
-    <div class="ad-container ad-320x50 mt-4" role="region" aria-label="Advertisement">
+    <div class="ad-container ad-320x50 mt-4 active" role="region" aria-label="Advertisement">
+      <div class="ad-fallback">Ad failed to load (320x50)</div>
       <script type="text/javascript">
         atOptions = {
           'key': '78ade24182729fceea8e45203dad915b',
@@ -327,8 +324,9 @@
           'width': 320,
           'params': {}
         };
+        console.log('Loading ad 320x50');
       </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/78ade24182729fceea8e45203dad915b/invoke.js" async></script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/78ade24182729fceea8e45203dad915b/invoke.js"></script>
     </div>
   </footer>
 
@@ -339,13 +337,13 @@
     "@type": "WebApplication",
     "name": "Image Compressor Pro",
     "description": "A fast, secure, client-side image compression tool that supports JPEG, PNG, and WEBP formats. Compress images directly in your browser without uploading.",
-    "url": "https://yourdomain.com/image-compressor",
+    "url": "https://example.com/image-compressor",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
     "creator": {
       "@type": "Organization",
       "name": "Webgamer Studio",
-      "url": "https://yourdomain.com"
+      "url": "https://example.com"
     },
     "offers": {
       "@type": "Offer",
@@ -355,19 +353,36 @@
   }
   </script>
 
-  <!-- Ad Randomization Script -->
+  <!-- Ad Alternation and Debug Script -->
   <script>
-    // Randomly select one ad to display on page load
     document.addEventListener('DOMContentLoaded', () => {
-      const ads = ['ad-728x90', 'ad-300x250', 'ad-320x50'];
-      const randomAd = ads[Math.floor(Math.random() * ads.length)];
-      document.querySelectorAll('.ad-container').forEach(ad => {
-        ad.classList.remove('active');
+      // Debug ad script loading
+      document.querySelectorAll('.ad-container script[src*="invoke.js"]').forEach(script => {
+        script.addEventListener('load', () => console.log(`Ad script loaded: ${script.src}`));
+        script.addEventListener('error', () => console.error(`Ad script failed to load: ${script.src}`));
       });
-      const selectedAd = document.querySelector(`.${randomAd}`);
-      if (selectedAd) {
-        selectedAd.classList.add('active');
+
+      // Ad alternation logic
+      const headerAd = document.querySelector('.ad-728x90');
+      const footerAd = document.querySelector('.ad-320x50');
+      
+      function toggleAds() {
+        if (headerAd.classList.contains('active')) {
+          headerAd.classList.remove('active');
+          footerAd.classList.add('active');
+          console.log('Switched to footer ad (320x50)');
+        } else {
+          headerAd.classList.add('active');
+          footerAd.classList.remove('active');
+          console.log('Switched to header ad (728x90)');
+        }
       }
+
+      // Start with footer ad visible (as per your observation)
+      footerAd.classList.add('active');
+
+      // Toggle every 30 seconds
+      setInterval(toggleAds, 30000);
     });
   </script>
 
@@ -378,6 +393,15 @@
       if (size === 0) return '0 B';
       const i = Math.floor(Math.log(size) / Math.log(1024));
       return (size / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+    };
+
+    // Fallback for crypto.randomUUID
+    const generateId = () => {
+      if (crypto.randomUUID) return crypto.randomUUID();
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
     };
 
     let files = [];
@@ -434,11 +458,13 @@
         return;
       }
       compressAllBtn.disabled = true;
+      compressAllBtn.setAttribute('aria-busy', 'true');
       compressAllBtn.textContent = '⏳ Compressing...';
       for (const f of files) {
         await compressAndShow(f);
       }
       compressAllBtn.disabled = false;
+      compressAllBtn.setAttribute('aria-busy', 'false');
       compressAllBtn.textContent = '✨ Compress All';
     });
 
@@ -457,7 +483,13 @@
         showAlert('⚠️ Please select valid image files');
         return;
       }
-      arr.forEach(f => files.push({ file: f, id: crypto.randomUUID() }));
+      arr.forEach(f => {
+        if (f.size > 50 * 1024 * 1024) { // 50MB limit
+          showAlert(`⚠️ File ${f.name} is too large (max 50MB)`);
+          return;
+        }
+        files.push({ file: f, id: generateId() });
+      });
       renderResults();
     }
 
@@ -520,8 +552,10 @@
 
         info.querySelector('.compress-now').addEventListener('click', async () => {
           info.querySelector('.compress-now').disabled = true;
+          info.querySelector('.compress-now').setAttribute('aria-busy', 'true');
           await compressAndShow(item);
           info.querySelector('.compress-now').disabled = false;
+          info.querySelector('.compress-now').setAttribute('aria-busy', 'false');
         });
         info.querySelector('.remove-now').addEventListener('click', () => {
           files = files.filter(x => x.id !== item.id);
@@ -536,9 +570,15 @@
       statusEl.innerHTML = '<div class="text-sm text-indigo-600 animate-pulse">⏳ Compressing...</div>';
 
       try {
+        const maxWidth = parseInt(maxWidthInput.value);
+        const maxHeight = parseInt(maxHeightInput.value);
+        if (maxWidth <= 0 || maxHeight <= 0) {
+          throw new Error('Max width and height must be positive numbers');
+        }
+
         const opts = {
-          maxWidth: parseInt(maxWidthInput.value) || undefined,
-          maxHeight: parseInt(maxHeightInput.value) || undefined,
+          maxWidth: maxWidth || undefined,
+          maxHeight: maxHeight || undefined,
           quality: Number(qualityInput.value) || 0.8,
           format: formatSelect.value
         };
