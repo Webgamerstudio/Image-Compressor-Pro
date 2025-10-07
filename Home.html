@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Image Compressor Pro by Webgamer Studio - Fast, secure, client-side image compression tool for JPEG, PNG, and WEBP. Optimize images directly in your browser.">
+  <meta name="keywords" content="image compressor, image optimization, compress JPEG, compress PNG, compress WEBP, client-side compression, Webgamer Studio">
+  <meta name="author" content="Webgamer Studio">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Tags for Social Sharing -->
+  <meta property="og:title" content="Image Compressor Pro — Webgamer Studio">
+  <meta property="og:description" content="Compress JPEG, PNG, and WEBP images quickly and securely in your browser with Image Compressor Pro. No data leaves your device.">
+  <meta property="og:image" content="https://yourdomain.com/images/og-image-compressor.jpg">
+  <meta property="og:url" content="https://yourdomain.com/image-compressor">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Compressor Pro — Webgamer Studio">
+  <meta name="twitter:description" content="Fast, secure, and free image compression tool for all devices. Optimize your images without uploading them.">
+  <meta name="twitter:image" content="https://yourdomain.com/images/twitter-image-compressor.jpg">
+
+  <title>Image Compressor Pro — Webgamer Studio</title>
+  <link rel="canonical" href="https://yourdomain.com/image-compressor">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  
+  <!-- Preload Tailwind CSS for faster rendering -->
+  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+  <script src="https://cdn.tailwindcss.com" async></script>
+  
+  <!-- Google Fonts with font-display: swap for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overscroll-behavior: none;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .drop-area-active {
+      background: #f0f4ff;
+      border-color: #667eea;
+    }
+
+    .card-shadow {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .btn-primary {
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Ad styles */
+    .ad-container {
+      display: none;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .ad-container.active {
+      display: block;
+    }
+
+    /* Responsive ad adjustments */
+    @media (max-width: 640px) {
+      .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .drop-area {
+        padding: 1.5rem;
+      }
+
+      .drop-area svg {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .results-container {
+        max-height: 400px;
+      }
+
+      .card-shadow {
+        padding: 0.75rem;
+      }
+
+      .ad-728x90, .ad-300x250 {
+        display: none;
+      }
+
+      .ad-320x50.active {
+        display: block;
+      }
+    }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .results-container {
+        max-height: 500px;
+      }
+
+      .ad-728x90, .ad-320x50 {
+        display: none;
+      }
+
+      .ad-300x250.active {
+        display: block;
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .ad-300x250, .ad-320x50 {
+        display: none;
+      }
+
+      .ad-728x90.active {
+        display: block;
+      }
+    }
+
+    button, select, input[type="checkbox"] {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="gradient-bg text-white py-4 md:py-6 px-4 shadow-lg sticky top-0 z-50" role="banner">
+    <div class="container max-w-6xl mx-auto">
+      <h1 class="text-xl md:text-4xl font-bold mb-1 md:mb-2">🖼️ Image Compressor Pro</h1>
+      <p class="text-xs md:text-base text-white/90">Fast, secure, and 100% client-side compression — Your images never leave your device</p>
+      <!-- Header Ad (728x90) -->
+      <div class="ad-container ad-728x90" role="region" aria-label="Advertisement">
+        <script type="text/javascript">
+          atOptions = {
+            'key': '63718988f07bc6d276f3c6a441757cae',
+            'format': 'iframe',
+            'height': 90,
+            'width': 728,
+            'params': {}
+          };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/63718988f07bc6d276f3c6a441757cae/invoke.js" async></script>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container max-w-6xl mx-auto px-4 sm:px-6 py-4 md:py-10" role="main">
+    <!-- Upload Section -->
+    <section class="bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6 md:p-8 mb-4 md:mb-6" aria-labelledby="upload-heading">
+      <h2 id="upload-heading" class="text-base sm:text-lg md:text-xl font-semibold mb-3 md:mb-4 text-gray-800">📁 Upload Images</h2>
+      <div class="grid lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+        <!-- Left Column: Upload & Settings -->
+        <div class="space-y-4 sm:space-y-6">
+          <div>
+            <!-- Drop Area -->
+            <div id="dropArea" class="drop-area border-2 border-dashed border-gray-300 rounded-xl p-6 sm:p-8 md:p-12 text-center cursor-pointer transition-all duration-300 hover:border-indigo-400 hover:bg-gray-50" role="region" aria-label="Drag and drop images here">
+              <div class="space-y-2 sm:space-y-3">
+                <svg class="mx-auto h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p class="text-sm sm:text-base md:text-lg font-medium text-gray-700">Drag & drop images here</p>
+                <p class="text-xs sm:text-sm text-gray-500">or tap to browse</p>
+                <p class="text-xs text-gray-400">Supports JPEG, PNG, WEBP</p>
+              </div>
+              <input id="fileInput" type="file" accept="image/*" multiple class="hidden" aria-label="Upload images" />
+            </div>
+          </div>
+
+          <!-- Settings -->
+          <article class="bg-gray-50 rounded-xl p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4" aria-labelledby="settings-heading">
+            <h3 id="settings-heading" class="font-semibold text-base sm:text-lg md:text-lg text-gray-800 mb-3 sm:mb-4">⚙️ Compression Settings</h3>
+            <!-- Max Width -->
+            <div>
+              <label for="maxWidth" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Max Width (px)</label>
+              <input id="maxWidth" type="number" min="1" placeholder="e.g., 1920" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" aria-describedby="maxWidth-desc" />
+              <p id="maxWidth-desc" class="text-xs text-gray-500 mt-1">Set maximum width for compressed images</p>
+            </div>
+            <!-- Max Height -->
+            <div>
+              <label for="maxHeight" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Max Height (px)</label>
+              <input id="maxHeight" type="number" min="1" placeholder="e.g., 1080" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" aria-describedby="maxHeight-desc" />
+              <p id="maxHeight-desc" class="text-xs text-gray-500 mt-1">Set maximum height for compressed images</p>
+            </div>
+            <!-- Quality Slider -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5 sm:mb-2">
+                <label for="quality" class="text-xs sm:text-sm font-medium text-gray-700">Quality</label>
+                <span id="qualityValue" class="text-xs sm:text-sm font-semibold text-indigo-600 bg-indigo-50 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">80%</span>
+              </div>
+              <input id="quality" type="range" min="0.1" max="1" step="0.05" value="0.8" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" aria-describedby="quality-desc" />
+              <div class="flex justify-between text-xs text-gray-500 mt-1">
+                <span>Low</span>
+                <span>High</span>
+              </div>
+              <p id="quality-desc" class="text-xs text-gray-500 mt-1">Adjust compression quality (higher means better quality but larger file size)</p>
+            </div>
+            <!-- Format Selection -->
+            <div>
+              <label for="format" class="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">Output Format</label>
+              <select id="format" class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition bg-white" aria-describedby="format-desc">
+                <option value="image/jpeg">JPEG (Best compatibility)</option>
+                <option value="image/webp">WEBP (Smallest size)</option>
+                <option value="image/png">PNG (Lossless quality)</option>
+              </select>
+              <p id="format-desc" class="text-xs text-gray-500 mt-1">Choose the output format for compressed images</p>
+            </div>
+            <!-- Preserve Aspect Ratio -->
+            <div class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-white rounded-lg">
+              <input id="preserveAspect" type="checkbox" checked class="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500" aria-describedby="preserveAspect-desc" />
+              <label for="preserveAspect" class="text-xs sm:text-sm font-medium text-gray-700 cursor-pointer">Preserve aspect ratio</label>
+              <p id="preserveAspect-desc" class="sr-only">Enable to maintain the original image proportions during compression</p>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2 sm:pt-4">
+              <button id="compressAllBtn" class="btn-primary flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold shadow-lg hover:shadow-xl transition-all" aria-label="Compress all uploaded images">✨ Compress All</button>
+              <button id="clearBtn" class="px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-red-50 text-red-600 rounded-lg font-semibold hover:bg-red-100 transition" aria-label="Clear all uploaded images">🗑️ Clear All</button>
+            </div>
+          </article>
+        </div>
+
+        <!-- Right Column: Preview & Results -->
+        <div>
+          <h2 id="preview-heading" class="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4 text-gray-800">📊 Preview & Downloads</h2>
+          <div id="results" class="results-container space-y-3 sm:space-y-4 max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto scrollbar-hide p-1 sm:p-2" role="region" aria-live="polite">
+            <div class="text-center py-8 sm:py-12 text-gray-400">
+              <svg class="mx-auto h-12 w-12 sm:h-16 sm:w-16 mb-3 sm:mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="text-xs sm:text-sm">No images uploaded yet</p>
+              <p class="text-xs mt-0.5 sm:mt-1">Upload images to get started</p>
+            </div>
+          </div>
+          <!-- Sidebar Ad (300x250) -->
+          <div class="ad-container ad-300x250 mt-4" role="region" aria-label="Advertisement">
+            <script type="text/javascript">
+              atOptions = {
+                'key': 'c620af328467e6de19dc04af696ee0fb',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'params': {}
+              };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/c620af328467e6de19dc04af696ee0fb/invoke.js" async></script>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="sr-only">Features of Image Compressor Pro</h2>
+      <article class="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 card-shadow text-center">
+        <div class="text-2xl sm:text-3xl mb-1 sm:mb-2" aria-hidden="true">🔒</div>
+        <h3 class="text-xs sm:text-sm font-semibold text-gray-800 mb-0.5 sm:mb-1">100% Private</h3>
+        <p class="text-xs text-gray-600 hidden sm:block">All processing happens locally</p>
+      </article>
+      <article class="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 card-shadow text-center">
+        <div class="text-2xl sm:text-3xl mb-1 sm:mb-2" aria-hidden="true">⚡</div>
+        <h3 class="text-xs sm:text-sm font-semibold text-gray-800 mb-0.5 sm:mb-1">Lightning Fast</h3>
+        <p class="text-xs text-gray-600 hidden sm:block">Instant compression results</p>
+      </article>
+      <article class="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 card-shadow text-center">
+        <div class="text-2xl sm:text-3xl mb-1 sm:mb-2" aria-hidden="true">📱</div>
+        <h3 class="text-xs sm:text-sm font-semibold text-gray-800 mb-0.5 sm:mb-1">Mobile Ready</h3>
+        <p class="text-xs text-gray-600 hidden sm:block">Works on all devices</p>
+      </article>
+      <article class="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 card-shadow text-center">
+        <div class="text-2xl sm:text-3xl mb-1 sm:mb-2" aria-hidden="true">🎯</div>
+        <h3 class="text-xs sm:text-sm font-semibold text-gray-800 mb-0.5 sm:mb-1">High Quality</h3>
+        <p class="text-xs text-gray-600 hidden sm:block">Maintain visual quality</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-xs sm:text-sm text-gray-500 py-3 sm:py-4" role="contentinfo">
+    <p>Built with ❤️ by <span class="font-semibold text-indigo-600">Webgamer Studio</span></p>
+    <p class="text-xs mt-0.5 sm:mt-1">All compression runs locally in your browser — No data is uploaded</p>
+    <nav aria-label="Footer navigation">
+      <ul class="flex justify-center gap-4 mt-2">
+        <li><a href="/privacy" class="text-indigo-600 hover:underline">Privacy Policy</a></li>
+        <li><a href="/terms" class="text-indigo-600 hover:underline">Terms of Service</a></li>
+        <li><a href="/contact" class="text-indigo-600 hover:underline">Contact Us</a></li>
+      </ul>
+    </nav>
+    <!-- Footer Ad (320x50) -->
+    <div class="ad-container ad-320x50 mt-4" role="region" aria-label="Advertisement">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '78ade24182729fceea8e45203dad915b',
+          'format': 'iframe',
+          'height': 50,
+          'width': 320,
+          'params': {}
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/78ade24182729fceea8e45203dad915b/invoke.js" async></script>
+    </div>
+  </footer>
+
+  <!-- Schema Markup for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Compressor Pro",
+    "description": "A fast, secure, client-side image compression tool that supports JPEG, PNG, and WEBP formats. Compress images directly in your browser without uploading.",
+    "url": "https://yourdomain.com/image-compressor",
+    "applicationCategory": "Utility",
+    "operatingSystem": "All",
+    "creator": {
+      "@type": "Organization",
+      "name": "Webgamer Studio",
+      "url": "https://yourdomain.com"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Ad Randomization Script -->
+  <script>
+    // Randomly select one ad to display on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const ads = ['ad-728x90', 'ad-300x250', 'ad-320x50'];
+      const randomAd = ads[Math.floor(Math.random() * ads.length)];
+      document.querySelectorAll('.ad-container').forEach(ad => {
+        ad.classList.remove('active');
+      });
+      const selectedAd = document.querySelector(`.${randomAd}`);
+      if (selectedAd) {
+        selectedAd.classList.add('active');
+      }
+    });
+  </script>
+
+  <script>
+    const el = id => document.getElementById(id);
+
+    const humanFileSize = (size) => {
+      if (size === 0) return '0 B';
+      const i = Math.floor(Math.log(size) / Math.log(1024));
+      return (size / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+    };
+
+    let files = [];
+
+    const dropArea = el('dropArea');
+    const fileInput = el('fileInput');
+    const results = el('results');
+    const maxWidthInput = el('maxWidth');
+    const maxHeightInput = el('maxHeight');
+    const qualityInput = el('quality');
+    const qualityValue = el('qualityValue');
+    const formatSelect = el('format');
+    const preserveAspect = el('preserveAspect');
+    const clearBtn = el('clearBtn');
+    const compressAllBtn = el('compressAllBtn');
+
+    // Update quality value display
+    qualityInput.addEventListener('input', () => {
+      const val = (Number(qualityInput.value) * 100).toFixed(0);
+      qualityValue.textContent = val + '%';
+    });
+
+    // Drag and drop events
+    ['dragenter', 'dragover'].forEach(e => {
+      dropArea.addEventListener(e, ev => {
+        ev.preventDefault();
+        dropArea.classList.add('drop-area-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(e => {
+      dropArea.addEventListener(e, ev => {
+        ev.preventDefault();
+        dropArea.classList.remove('drop-area-active');
+      });
+    });
+
+    dropArea.addEventListener('drop', ev => {
+      const dt = ev.dataTransfer;
+      handleFiles(dt.files);
+    });
+
+    dropArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+    clearBtn.addEventListener('click', () => {
+      files = [];
+      renderResults();
+    });
+
+    compressAllBtn.addEventListener('click', async () => {
+      if (!files.length) {
+        showAlert('⚠️ Please select images first');
+        return;
+      }
+      compressAllBtn.disabled = true;
+      compressAllBtn.textContent = '⏳ Compressing...';
+      for (const f of files) {
+        await compressAndShow(f);
+      }
+      compressAllBtn.disabled = false;
+      compressAllBtn.textContent = '✨ Compress All';
+    });
+
+    function showAlert(message) {
+      const alert = document.createElement('div');
+      alert.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg shadow-lg text-sm';
+      alert.textContent = message;
+      alert.setAttribute('role', 'alert');
+      document.body.appendChild(alert);
+      setTimeout(() => alert.remove(), 3000);
+    }
+
+    function handleFiles(fileList) {
+      const arr = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+      if (arr.length === 0) {
+        showAlert('⚠️ Please select valid image files');
+        return;
+      }
+      arr.forEach(f => files.push({ file: f, id: crypto.randomUUID() }));
+      renderResults();
+    }
+
+    function renderResults() {
+      results.innerHTML = '';
+
+      if (!files.length) {
+        results.innerHTML = `
+          <div class="text-center py-8 sm:py-12 text-gray-400">
+            <svg class="mx-auto h-12 w-12 sm:h-16 sm:w-16 mb-3 sm:mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="text-xs sm:text-sm">No images uploaded yet</p>
+            <p class="text-xs mt-0.5 sm:mt-1">Upload images to get started</p>
+          </div>
+        `;
+        return;
+      }
+
+      files.forEach(item => {
+        const f = item.file;
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 card-shadow transition-all hover:shadow-lg';
+
+        const content = document.createElement('div');
+        content.className = 'flex gap-3 sm:gap-4';
+
+        const thumb = document.createElement('img');
+        thumb.className = 'w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-lg border-2 border-gray-100 flex-shrink-0';
+        thumb.alt = `Thumbnail of ${f.name}`;
+        thumb.loading = 'lazy';
+
+        const info = document.createElement('div');
+        info.className = 'flex-1 min-w-0';
+        info.innerHTML = `
+          <div class="mb-2 sm:mb-3">
+            <div class="text-sm sm:text-base font-semibold text-gray-800 truncate mb-0.5 sm:mb-1">${escapeHtml(f.name)}</div>
+            <div class="text-xs text-gray-500">Original: <span class="font-medium">${humanFileSize(f.size)}</span></div>
+          </div>
+          <div class="flex flex-wrap gap-1.5 sm:gap-2">
+            <button class="compress-now px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-600 text-white rounded-lg text-xs sm:text-sm font-medium hover:bg-indigo-700 transition" aria-label="Compress ${f.name}">
+              ⚡ Compress
+            </button>
+            <button class="remove-now px-3 sm:px-4 py-1.5 sm:py-2 bg-red-50 text-red-600 rounded-lg text-xs sm:text-sm font-medium hover:bg-red-100 transition" aria-label="Remove ${f.name}">
+              ✕ Remove
+            </button>
+          </div>
+          <div class="mt-2 sm:mt-3" id="status-${item.id}"></div>
+        `;
+
+        content.appendChild(thumb);
+        content.appendChild(info);
+        card.appendChild(content);
+        results.appendChild(card);
+
+        const reader = new FileReader();
+        reader.onload = e => thumb.src = e.target.result;
+        reader.onerror = () => thumb.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        reader.readAsDataURL(f);
+
+        info.querySelector('.compress-now').addEventListener('click', async () => {
+          info.querySelector('.compress-now').disabled = true;
+          await compressAndShow(item);
+          info.querySelector('.compress-now').disabled = false;
+        });
+        info.querySelector('.remove-now').addEventListener('click', () => {
+          files = files.filter(x => x.id !== item.id);
+          renderResults();
+        });
+      });
+    }
+
+    async function compressAndShow(item) {
+      const file = item.file;
+      const statusEl = el(`status-${item.id}`);
+      statusEl.innerHTML = '<div class="text-sm text-indigo-600 animate-pulse">⏳ Compressing...</div>';
+
+      try {
+        const opts = {
+          maxWidth: parseInt(maxWidthInput.value) || undefined,
+          maxHeight: parseInt(maxHeightInput.value) || undefined,
+          quality: Number(qualityInput.value) || 0.8,
+          format: formatSelect.value
+        };
+
+        const compressedBlob = await compressImageFile(file, opts);
+        const url = URL.createObjectURL(compressedBlob);
+        const savings = ((1 - compressedBlob.size / file.size) * 100).toFixed(1);
+
+        statusEl.innerHTML = `
+          <div class="bg-green-50 border border-green-200 rounded-lg p-3 sm:p-3 mt-2">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-green-600 font-semibold">✓ Compressed Successfully</span>
+            </div>
+            <div class="text-xs text-gray-600 mb-3">
+              <span class="font-medium">Compressed:</span> ${humanFileSize(compressedBlob.size)} 
+              <span class="text-green-600 font-semibold">(${savings}% smaller)</span>
+            </div>
+            <div class="flex gap-2">
+              <a href="${url}" download="${downloadName(file.name, opts.format)}" 
+                 class="inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition" aria-label="Download compressed ${file.name}">
+                📥 Download
+              </a>
+              <button onclick="window.open('${url}')" 
+                      class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition" aria-label="Preview compressed ${file.name}">
+                👁️ Preview
+              </button>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+        statusEl.innerHTML = `<div class="text-sm text-red-600 bg-red-50 p-3 rounded-lg mt-2">❌ Error: ${escapeHtml(err.message || 'Compression failed')}</div>`;
+      }
+    }
+
+    function downloadName(original, mime) {
+      const ext = mime === 'image/png' ? 'png' : mime === 'image/webp' ? 'webp' : 'jpg';
+      return original.replace(/\.[^/.]+$/, '') + '-compressed.' + ext;
+    }
+
+    function escapeHtml(text) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    function loadImageFromFile(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Failed to load image'));
+        const reader = new FileReader();
+        reader.onload = e => img.src = e.target.result;
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function compressImageFile(file, opts = {}) {
+      const img = await loadImageFromFile(file);
+
+      let targetW = img.width;
+      let targetH = img.height;
+
+      if (opts.maxWidth || opts.maxHeight) {
+        const maxW = opts.maxWidth || img.width;
+        const maxH = opts.maxHeight || img.height;
+
+        if (preserveAspect.checked) {
+          const ratio = Math.min(maxW / img.width, maxH / img.height, 1);
+          targetW = Math.round(img.width * ratio);
+          targetH = Math.round(img.height * ratio);
+        } else {
+          targetW = Math.min(img.width, maxW);
+          targetH = Math.min(img.height, maxH);
+        }
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      const mime = opts.format || 'image/jpeg';
+      const quality = mime === 'image/png' ? undefined : (opts.quality || 0.8);
+
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) resolve(blob);
+          else reject(new Error('Failed to create compressed image'));
+        }, mime, quality);
+      });
+    }
+  </script>
+</body>
+</html>
